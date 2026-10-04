@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Professional appointment management system">
+  <title>Appointment Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <div><strong>APPOINTMENT</strong><span>MANAGEMENT SYSTEM</span></div>
+      </div>
+      <nav>
+        <a class="active" href="#dashboard">Dashboard</a>
+        <a href="#appointments">Appointments</a>
+      </nav>
+      <div class="sidebar-note">
+        <span class="dot"></span>
+        <div><b>System Online</b><small>Ready to manage records</small></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Management Dashboard</p>
+          <h1>Appointment Management</h1>
+          <p class="subhead">Manage, search and maintain appointment records from any device.</p>
+        </div>
+        <button class="primary-btn" id="newAppointmentBtn">＋ New Appointment</button>
+      </header>
+
+      <section id="dashboard" class="stats-grid">
+        <article class="stat-card"><div class="stat-icon">▦</div><div><span>Total</span><strong id="totalCount">0</strong></div></article>
+        <article class="stat-card"><div class="stat-icon scheduled">◷</div><div><span>Scheduled</span><strong id="scheduledCount">0</strong></div></article>
+        <article class="stat-card"><div class="stat-icon completed">✓</div><div><span>Completed</span><strong id="completedCount">0</strong></div></article>
+        <article class="stat-card"><div class="stat-icon cancelled">×</div><div><span>Cancelled</span><strong id="cancelledCount">0</strong></div></article>
+      </section>
+
+      <section id="appointments" class="panel">
+        <div class="panel-head">
+          <div><h2>Appointment Records</h2><p>All appointments stored in the project database.</p></div>
+          <a class="secondary-btn" href="/api/export">⇩ Export CSV</a>
+        </div>
+        <div class="toolbar">
+          <div class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="Search by name, phone, purpose or status..."></div>
+          <button class="secondary-btn" id="refreshBtn">↻ Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>Name</th><th>Phone</th><th>Date</th><th>Time</th><th>Purpose</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="appointmentTable"><tr><td colspan="8" class="empty">Loading records...</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer>Appointment Management System · College Semester Project</footer>
+    </main>
+  </div>
+
+  <div class="modal hidden" id="modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head"><div><span class="eyebrow">Appointment Details</span><h2 id="modalTitle">New Appointment</h2></div><button class="icon-btn" id="closeModal">×</button></div>
+      <form id="appointmentForm">
+        <input type="hidden" id="appointmentId">
+        <div class="form-grid">
+          <label>Name<input id="name" required maxlength="100" placeholder="e.g. Anurag Nikam"></label>
+          <label>Phone<input id="phone" required inputmode="numeric" maxlength="15" placeholder="10-15 digit number"></label>
+          <label>Date <small>(DD-MM-YYYY)</small><input id="date" required placeholder="15-10-2026"></label>
+          <label>Time <small>(24-hour HH:MM)</small><input id="time" required placeholder="10:30"></label>
+          <label class="full">Purpose<input id="purpose" required maxlength="200" placeholder="e.g. Project meeting"></label>
+          <label>Status<select id="status"><option>Scheduled</option><option>Completed</option><option>Cancelled</option></select></label>
+        </div>
+        <div class="form-help">Date accepts <b>DD-MM-YYYY</b>, <b>DD/MM/YYYY</b> or <b>DD.MM.YYYY</b> and is normalized automatically.</div>
+        <div class="modal-actions"><button type="button" class="secondary-btn" id="clearBtn">Clear</button><button type="submit" class="primary-btn" id="saveBtn">Save Appointment</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+ <script src="/static/js/app.js"></script>
+</body>
+</html>
